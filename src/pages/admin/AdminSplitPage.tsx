@@ -17,7 +17,6 @@ export function AdminSplitPage() {
   React.useEffect(() => {
     api.allBalances().then((all) => {
       setParticipants(all)
-      setSelected(new Set(all.map((b) => b.user_id)))
     })
   }, [])
 
