@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/hooks/useAuth'
 import { BottomNav } from '@/components/layout/BottomNav'
 import { OnboardingPage } from '@/pages/OnboardingPage'
@@ -45,11 +45,11 @@ function AppShell() {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AuthProvider>
         <AppShell />
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
