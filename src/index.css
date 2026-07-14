@@ -60,4 +60,9 @@ body {
   min-height: 100svh;
   max-width: 560px;
   margin: 0 auto;
+  /* Telegram сам выставляет эти CSS-переменные: --tg-safe-area-inset-top —
+     системный вырез экрана, --tg-content-safe-area-inset-top — область,
+     занятая кнопками "Закрыть"/"Свернуть" самого Telegram. Без этого
+     верх интерфейса перекрывается этими кнопками. */
+  padding-top: calc(var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
 }
