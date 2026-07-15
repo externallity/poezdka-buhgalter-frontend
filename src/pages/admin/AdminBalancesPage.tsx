@@ -10,8 +10,35 @@ export function AdminBalancesPage() {
     api.allBalances().then(setBalances)
   }, [])
 
+  const totalSum = React.useMemo(
+    () => (balances ?? []).reduce((sum, b) => sum + b.balance_sum, 0),
+    [balances]
+  )
+  const totalRub = React.useMemo(
+    () => (balances ?? []).reduce((sum, b) => sum + b.balance_rub, 0),
+    [balances]
+  )
+
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
+    <div className="flex flex-col gap-4">
+      {balances !== null && (
+        <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
+          <span className="text-sm text-muted-foreground">На карте не своих денег</span>
+          <span
+            className={cn(
+              'text-lg font-semibold tabular-nums',
+              totalSum > 0 ? 'text-success' : totalSum < 0 ? 'text-destructive' : 'text-foreground'
+            )}
+          >
+            {formatAmount(totalSum)}{' '}
+            <span className="text-sm font-normal text-muted-foreground">
+              сум · {formatAmount(totalRub)} руб
+            </span>
+          </span>
+        </div>
+      )}
+
+      <div className="overflow-x-auto rounded-lg border border-border">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border text-left text-xs text-muted-foreground">
@@ -46,6 +73,7 @@ export function AdminBalancesPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }
