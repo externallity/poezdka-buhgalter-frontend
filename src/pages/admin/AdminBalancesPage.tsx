@@ -10,14 +10,9 @@ export function AdminBalancesPage() {
     api.allBalances().then(setBalances)
   }, [])
 
-  const totalSum = React.useMemo(
-    () => (balances ?? []).reduce((sum, b) => sum + b.balance_sum, 0),
-    [balances]
-  )
-  const totalRub = React.useMemo(
-    () => (balances ?? []).reduce((sum, b) => sum + b.balance_rub, 0),
-    [balances]
-  )
+  const others = React.useMemo(() => (balances ?? []).filter((b) => b.name !== 'Амир'), [balances])
+  const totalSum = React.useMemo(() => others.reduce((sum, b) => sum + b.balance_sum, 0), [others])
+  const totalRub = React.useMemo(() => others.reduce((sum, b) => sum + b.balance_rub, 0), [others])
 
   return (
     <div className="flex flex-col gap-4">
